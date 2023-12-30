@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from "react";
 
 const FormComponent1 = () => {
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   age: "",
-  //   phone: "",
-  //   email: "",
-  // });
-
   const [formData, setFormData] = useState({
-    name: "Sai Shiva Hari Prasad Embar",
-    age: "30",
-    phone: "122",
-    email: "esshariprasad@gmail.com",
-  })
+    name: "",
+    age: "",
+    phone: "",
+    email: "",
+  });
 
+  // const [formData, setFormData] = useState([])
+  const [formEntries, setFormEntries] = useState([]);
 
+  const setUPMockData=()=>{
+    let mockdata=[{
+      name: "Sai Shiva Hari Prasad Embar",
+      age: "30",
+      phone: "122",
+      email: "esshariprasad@gmail.com",
+    },
+    {
+      name: "Sai Shiva Er",
+      age: "10",
+      phone: "122",
+      email: "ravi@gmail.com",
+    },
+  ]
+    console.log(mockdata)
+     setFormData(mockdata)
+     setFormEntries(mockdata)
+  }
 
   const [searchResults, setSearchResults] = useState({
     name: "",
@@ -25,13 +38,7 @@ const FormComponent1 = () => {
   });
 
 
-  const [formEntries, setFormEntries] = useState(
-    {
-    name: "Sai Shiva Hari Prasad Embar",
-    age: "30",
-    phone: "122",
-    email: "esshariprasad@gmail.com",
-  })
+
 
   // const [formEntries, setFormEntries] = useState([])
   
@@ -132,6 +139,8 @@ const filtered = !searchField
     (formData)=>{
       console.log(formData)
       // setFormEntries(...formData)
+  
+      setUPMockData()
       console.log(formEntries)
       console.log(searchTerm)
 
