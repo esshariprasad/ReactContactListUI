@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const FormComponent1 = () => {
   const [formData, setFormData] = useState({
@@ -8,45 +8,10 @@ const FormComponent1 = () => {
     email: "",
   });
 
-  // const [formData, setFormData] = useState([])
-  const [formEntries, setFormEntries] = useState([]);
-
-  const setUPMockData=()=>{
-    let mockdata=[{
-      name: "Sai Shiva Hari Prasad Embar",
-      age: "30",
-      phone: "122",
-      email: "esshariprasad@gmail.com",
-    },
-    {
-      name: "Sai Shiva Er",
-      age: "10",
-      phone: "122",
-      email: "ravi@gmail.com",
-    },
-  ]
-    console.log(mockdata)
-     setFormData(mockdata)
-     setFormEntries(mockdata)
-  }
-
-  const [searchResults, setSearchResults] = useState({
-    name: "",
-    age: "",
-    phone: "",
-    email: "",
-  });
-
-
-
-
-  // const [formEntries, setFormEntries] = useState([])
-  
+  const [formEntries, setFormEntries] = useState([])
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(false);
-  const [searchActive, setSearchActive] = useState(true)
-  const [searchField, setSearchField] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -96,13 +61,8 @@ const FormComponent1 = () => {
     setFormEntries(sortedEntries);
   };
   
- 
-
+  const [searchField, setSearchField] = useState("");
   const handleSearchClick = e => {
-    console.log(e.target.value)
-    setSearchActive(true)
-
-    console.log(formEntries)
     setSearchField(e.target.value);
 };
 
@@ -122,31 +82,19 @@ const filtered = !searchField
     "45+": [],
   };
 
-  // formEntries.forEach((entry) => {
-  //   const age = parseInt(entry.age, 10);
-  //   if (age >= 1 && age <= 18) {
-  //     ageGroups["1-18"].push(entry);
-  //   } else if (age > 18 && age <= 25) {
-  //     ageGroups["18-25"].push(entry);
-  //   } else if (age > 25 && age <= 45) {
-  //     ageGroups["25-45"].push(entry);
-  //   } else if (age >= 45) {
-  //     ageGroups["45+"].push(entry);
-  //   }
-  // });
-
-   useEffect(
-    (formData)=>{
-      console.log(formData)
-      // setFormEntries(...formData)
-  
-      setUPMockData()
-      console.log(formEntries)
-      console.log(searchTerm)
-
+  formEntries.forEach((entry) => {
+    const age = parseInt(entry.age, 10);
+    if (age >= 1 && age <= 18) {
+      ageGroups["1-18"].push(entry);
+    } else if (age > 18 && age <= 25) {
+      ageGroups["18-25"].push(entry);
+    } else if (age > 25 && age <= 45) {
+      ageGroups["25-45"].push(entry);
+    } else if (age >= 45) {
+      ageGroups["45+"].push(entry);
     }
-    ,
-  [])
+  });
+
   return (
     <div>
       <button className="btn btn-primary" onClick={handleOpenModal}>
