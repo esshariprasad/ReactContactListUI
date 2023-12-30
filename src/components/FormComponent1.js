@@ -25,6 +25,12 @@ const FormComponent1 = () => {
     phone: "832224444",
     email: "divya@gmail.com",
   },
+  {
+    name: "Ayaan ",
+    age: "14",
+    phone: "832224444",
+    email: "ayaan@gmail.com",
+  },
 ]
   
   
