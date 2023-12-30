@@ -1,6 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const FormComponent1 = () => {
+  let mockdata=[{
+    name: "Sai Shiva Hari Prasad Embar",
+    age: "30",
+    phone: "122",
+    email: "esshariprasad@gmail.com",
+  },
+  {
+    name: "Sai Shiva E",
+    age: "28",
+    phone: "122",
+    email: "saishiva@gmail.com",
+  },
+  {
+    name: "Hari Prasad",
+    age: "10",
+    phone: "122",
+    email: "ravi@gmail.com",
+  },
+  {
+    name: "Divya ",
+    age: "25",
+    phone: "832224444",
+    email: "divya@gmail.com",
+  },
+]
+  
+  
+
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -8,10 +36,20 @@ const FormComponent1 = () => {
     email: "",
   });
 
+  
+  const setUPMockData=(mockdata)=>{
+ 
+    console.log(mockdata)
+     setFormEntries(mockdata)
+    //  setFormEntries(mockdata)
+  }
+
+
   const [formEntries, setFormEntries] = useState([])
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -64,6 +102,9 @@ const FormComponent1 = () => {
   const [searchField, setSearchField] = useState("");
   const handleSearchClick = e => {
     setSearchField(e.target.value);
+    console.log("search term")
+    console.log(e.target.value)
+    console.log(formEntries)
 };
 
 const filtered = !searchField
@@ -81,6 +122,22 @@ const filtered = !searchField
     "25-45": [],
     "45+": [],
   };
+
+  
+  useEffect(
+    (formData)=>{
+      // intial setup
+
+      // console.log(formData)
+      // setFormEntries(...formData)
+  
+      setUPMockData(mockdata)
+      // console.log(formEntries)
+      // console.log(searchTerm)
+
+    }
+    ,
+  [])
 
   formEntries.forEach((entry) => {
     const age = parseInt(entry.age, 10);
