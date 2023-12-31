@@ -6,30 +6,35 @@ const FormComponent1 = () => {
     age: "30",
     phone: "122",
     email: "esshariprasad@gmail.com",
+    uiKey:1,
   },
   {
     name: "Sai Shiva E",
     age: "28",
     phone: "122",
     email: "saishiva@gmail.com",
+    uiKey:2,
   },
   {
     name: "Hari Prasad",
     age: "10",
     phone: "122",
     email: "ravi@gmail.com",
+    uiKey:3,
   },
   {
-    name: "Divya ",
+    name: "Divya",
     age: "25",
     phone: "832224444",
     email: "divya@gmail.com",
+    uiKey:4,
   },
   {
     name: "Ayaan ",
     age: "14",
     phone: "832224444",
     email: "ayaan@gmail.com",
+    uiKey:5,
   },
 ]
   
@@ -60,19 +65,22 @@ const FormComponent1 = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([])
   const [uiKey,setUIKey]=useState(0)
+  const [editableUIkey,setEditableUIkey]=useState(null)
+  const [editWindowActive,setEditWindowActive]=useState(false)
   
   const handleChange = (e) => {
     console.log("formdata")
     console.log(formData)
     setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:uiKey});
+    // something for submit button
     console.log("next key value")
     console.log(uiKey)
-    setUIKey(uiKey+1)
+ 
   };
 
   const handleSubmit = (e) => {
+    setUIKey(uiKey+1)
     e.preventDefault();
-
     if (editIndex !== null) {
       // If editing, update the entry
       const updatedEntries = [...formEntries];
@@ -99,15 +107,16 @@ const FormComponent1 = () => {
     setShowModal(false);
   };
 
-  const handleEdit = (index) => {
+  const handleEdit = (uiKey) => {
     // Set the form data to the selected entry for editing
-    console.log(index)
-    let result = formEntries.filter((entry) => entry.key === index);
+    console.log("in edit window")
+    setEditWindowActive(true)
+    let result = formEntries.filter((entry) => entry.uiKey === uiKey);
     console.log(formEntries)
     console.log(result)
-
-    setFormData(formEntries[index]);
-    setEditIndex(index);
+    setFormData(result[0])
+    // setFormData(formEntries[index]);
+    // setEditIndex(index);
     setShowModal(true);
   };
 
@@ -354,15 +363,17 @@ const filtered = !searchField
                   <p className="card-text">Age:{entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
+                  <p className="card-text">uiKey: {entry.uiKey}</p>
+
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(entry.uiKey)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(entry.uiKey)}
                   >
                     Delete
                   </button>
@@ -379,15 +390,16 @@ const filtered = !searchField
                   <p className="card-text">Age: {entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
+                  <p className="card-text">uiKey: {entry.uiKey}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(entry.uiKey)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(entry.uiKey)}
                   >
                     Delete
                   </button>
@@ -404,15 +416,16 @@ const filtered = !searchField
                   <p className="card-text">Age:{entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
+                  <p className="card-text">uiKey: {entry.uiKey}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(entry.uiKey)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={(entry) => handleDelete(entry.uiKey)}
                   >
                     Delete
                   </button>
@@ -431,13 +444,13 @@ const filtered = !searchField
                   <p className="card-text">email: {entry.email}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(entry.uiKey)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(entry.uiKey)}
                   >
                     Delete
                   </button>
