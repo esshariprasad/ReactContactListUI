@@ -49,8 +49,8 @@ const FormComponent1 = () => {
 
   
   const setUPMockData=(mockdata)=>{
-    console.log("setting up mock data")
-    console.log(mockdata)
+    // console.log("setting up mock data")
+    // console.log(mockdata)
      setFormEntries(mockdata)
      setUIKey(10)
     
@@ -67,7 +67,8 @@ const FormComponent1 = () => {
   const [uiKey,setUIKey]=useState(0)
   const [editableUIkey,setEditableUIkey]=useState(null)
   const [editWindowActive,setEditWindowActive]=useState(false)
-  
+  const [displayResults,setDisplayResults]= useState([])
+  const [searchActive,setSearchActive]= useState(false)
   const handleChange = (e) => {
     console.log("formdata")
     console.log(formData)
@@ -102,9 +103,9 @@ const FormComponent1 = () => {
       console.log("updated array with order ")
       const updatedArrayWithOrder = formEntries.map(
         (obj) =>{
-          console.log("inside update array")
-          console.log(formData)
-          console.log(obj.uiKey === editableUIkey)
+          // console.log("inside update array")
+          // console.log(formData)
+          // console.log(obj.uiKey === editableUIkey)
           return obj.uiKey === formData.uiKey ? formData : obj
 
       }
@@ -175,6 +176,9 @@ const FormComponent1 = () => {
   const searchByName = (formEntries)=>{
   //  formEntries contain orginal data
   // search results contain filtered data
+    // setSearchActive(true)
+    // console.log("search status")
+    console.log(searchActive)
     console.log("formEntries")
     console.log(formEntries)
     console.log("search term current:")
@@ -187,16 +191,19 @@ const FormComponent1 = () => {
       // bring both two lower case to search effectively
       let lowercase_searchTerm = searchTerm.toLowerCase()
       
-      console.log(entry.name)
-      console.log(lower_case_person_name.startsWith(lowercase_searchTerm))
       if (lower_case_person_name.startsWith(lowercase_searchTerm)) {
         searchResults.push(entry);
         }
     })
+    console.log("search results")
     console.log(searchResults)
+    setDisplayResults(searchResults)
     // update the UI
 
 
+  }
+  else{
+    setSearchActive(false)
   }
 
   }
@@ -211,23 +218,11 @@ const FormComponent1 = () => {
     setSearchField(e.target.value);
     console.log("search term")
     console.log(e.target.value)
-    // console.log(formEntries)
     setSearchTerm(e.target.value)
+    setSearchActive(true)
     searchByName(formEntries)
-    // setFormEntries(searchResults)
+  
     
-    // searchResults.forEach((entry) => {
-    //   const age = parseInt(entry.age, 10);
-    //   if (age >= 1 && age <= 18) {
-    //     ageGroups["1-18"].push(entry);
-    //   } else if (age > 18 && age <= 25) {
-    //     ageGroups["18-25"].push(entry);
-    //   } else if (age > 25 && age <= 45) {
-    //     ageGroups["25-45"].push(entry);
-    //   } else if (age >= 45) {
-    //     ageGroups["45+"].push(entry);
-    //   }
-    // });
   
 
 };
@@ -284,8 +279,16 @@ const filtered = !searchField
     ,
   [])
 
+  // for display results
+  useEffect(()=>{
+    setDisplayResults(displayResults)
+    // console.log(displayResults)
+
+  },[formEntries])
+
+
   formEntries.forEach((entry) => {
-    console.log("ran")
+    // console.log("ran")
     const age = parseInt(entry.age, 10);
     if (age >= 1 && age <= 18) {
       ageGroups["1-18"].push(entry);
