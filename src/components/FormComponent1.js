@@ -60,6 +60,8 @@ const FormComponent1 = () => {
   const [searchResults, setSearchResults] = useState([])
   
   const handleChange = (e) => {
+    console.log("formdata")
+    console.log(formData)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -74,6 +76,8 @@ const FormComponent1 = () => {
       setEditIndex(null);
     } else {
       // If not editing, add a new entry
+      console.log("current form entries")
+      console.log(formData)
       setFormEntries([...formEntries, formData]);
     }
 
@@ -334,21 +338,21 @@ const filtered = !searchField
           <div className="col">
             <h3>1-18 Age Group:</h3>
             {ageGroups["1-18"].map((entry, index) => (
-              <div className="card mb-2" key={index}>
+              <div className="card mb-2" key={index+18}>
                 <div className="card-body">
                   <h5 className="card-title">{entry.name}</h5>
-                  <p className="card-text">Age: {entry.age}</p>
+                  <p className="card-text">Age: with {index+1}:{entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(index+1)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(index+1)}
                   >
                     Delete
                   </button>
@@ -359,21 +363,21 @@ const filtered = !searchField
           <div className="col">
             <h3>18-25 Age Group:</h3>
             {ageGroups["18-25"].map((entry, index) => (
-              <div className="card mb-2" key={index}>
+              <div className="card mb-2" key={index+18}>
                 <div className="card-body">
                   <h5 className="card-title">{entry.name}</h5>
-                  <p className="card-text">Age: {entry.age}</p>
+                  <p className="card-text">Age: with {index+18}: {entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(index+18)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(index+18)}
                   >
                     Delete
                   </button>
@@ -384,21 +388,21 @@ const filtered = !searchField
           <div className="col">
             <h3>25-45 Age Group:</h3>
             {ageGroups["25-45"].map((entry, index) => (
-              <div className="card mb-2" key={index}>
+              <div className="card mb-2" key={index+25}>
                 <div className="card-body">
                   <h5 className="card-title">{entry.name}</h5>
-                  <p className="card-text">Age: {entry.age}</p>
+                  <p className="card-text">Age: with {index+25}: {entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(index+25)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(index+25)}
                   >
                     Delete
                   </button>
@@ -409,21 +413,21 @@ const filtered = !searchField
           <div className="col">
             <h3>45+ Age Group:</h3>
             {ageGroups["45+"].map((entry, index) => (
-              <div className="card mb-2" key={index}>
+              <div className="card mb-2" key={index+45}>
                 <div className="card-body">
                   <h5 className="card-title">{entry.name}</h5>
-                  <p className="card-text">Age: {entry.age}</p>
+                  <p className="card-text">Age: with {index+45} {entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
                   <button
                     className="btn btn-warning mr-2"
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(index+45)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(index+45)}
                   >
                     Delete
                   </button>
