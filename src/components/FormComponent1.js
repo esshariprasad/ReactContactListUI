@@ -79,7 +79,8 @@ const FormComponent1 = () => {
   };
 
   const handleSubmit = (e) => {
-    setUIKey(uiKey+1)
+  
+    // setUIKey(uiKey+1)
     e.preventDefault();
     if (editIndex !== null) {
       // If editing, update the entry
@@ -87,11 +88,27 @@ const FormComponent1 = () => {
       updatedEntries[editIndex] = formData;
       setFormEntries(updatedEntries);
       setEditIndex(null);
-    } else {
+    } 
+    else {
       // If not editing, add a new entry
       console.log("current form entries")
       console.log(formData)
-      setFormEntries([...formEntries, formData]);
+      // updating entries with newform data but previous data needed be replaced
+      // setFormEntries([...formEntries, formData]);
+      // copy the same array and replace based on ui key 
+      const updatedArrayWithOrder = formEntries.map(
+        (obj,formData) =>{
+          console.log("inside update array")
+          console.log(formData)
+          console.log(obj.uiKey === formData.uiKey)
+          return obj.uiKey === formData.uiKey ? formData : obj
+
+      }
+      );
+      console.log("updated array with order ")
+      console.log(updatedArrayWithOrder)
+      setFormEntries(updatedArrayWithOrder)
+
     }
 
     setFormData({ name: "", age: "", phone: "", email: "" });
@@ -99,6 +116,7 @@ const FormComponent1 = () => {
   };
 
   const handleOpenModal = () => {
+    setUIKey(uiKey+1)
     setShowModal(true);
   };
 
@@ -120,12 +138,12 @@ const FormComponent1 = () => {
     setShowModal(true);
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (uiKey) => {
     // Delete the selected entry
-    const updatedEntries = [...formEntries];
-    updatedEntries.splice(index, 1);
+    let updatedEntries = formEntries.filter(item => item.uiKey !== uiKey);
     setFormEntries(updatedEntries);
   };
+
   const handleSortByAge = () => {
     const sortedEntries = [...formEntries].sort((a, b) => a.age - b.age);
     setFormEntries(sortedEntries);
@@ -425,7 +443,7 @@ const filtered = !searchField
                   </button>
                   <button
                     className="btn btn-danger"
-                    onClick={(entry) => handleDelete(entry.uiKey)}
+                    onClick={() => handleDelete(entry.uiKey)}
                   >
                     Delete
                   </button>
