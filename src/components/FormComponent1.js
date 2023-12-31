@@ -79,7 +79,7 @@ const FormComponent1 = () => {
     // something for submit button
     console.log("next key value")
     console.log(uiKey)
- 
+    setSearchActive(false)
   };
 
   const handleSubmit = (e) => {
@@ -185,15 +185,15 @@ const FormComponent1 = () => {
   // search results contain filtered data
     // setSearchActive(true)
     // console.log("search status")
-    console.log(searchActive)
-    console.log("formEntries")
-    console.log(formEntries)
-    console.log("search term current:")
-    console.log(searchTerm)
-    console.log(searchTerm.length)
-    if(searchTerm.length>1){
+    setSearchActive(false)
+    if(searchTerm.length>1 & searchTerm!==""){
+      console.log(searchActive)
+      console.log("formEntries")
+      console.log(formEntries)
+      console.log("search term current:")
+      console.log(searchTerm)
+      console.log(searchTerm.length)
       setSearchActive(true)
-    let filtered_results=[{}]
     formEntries.forEach((entry)=>{
       let lower_case_person_name=entry.name.toLowerCase();
       // bring both two lower case to search effectively
@@ -212,6 +212,8 @@ const FormComponent1 = () => {
   else{
     console.log("search inactive")
     setSearchActive(false)
+    setEditInSearch(false)
+    // setSearchTerm('')
     
   }
 
@@ -275,7 +277,7 @@ const filtered = !searchField
       // console.log(formData)
       // setFormEntries(...formData)
   
-      setUPMockData(mockdata)
+      // setUPMockData(mockdata)
       // console.log(formEntries)
       // console.log(searchTerm)
       
@@ -284,6 +286,12 @@ const filtered = !searchField
     ,
   [])
 
+  useEffect(()=>{
+
+    if(searchTerm.length<1){
+      setSearchActive(false)
+    }
+  },[searchTerm])
   // // for display results
   // useEffect(()=>{
   //   setDisplayResults(displayResults)
