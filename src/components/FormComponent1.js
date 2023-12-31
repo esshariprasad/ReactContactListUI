@@ -447,7 +447,6 @@ const filtered = !searchField
                   <p className="card-text">Age:{entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
-                  <p className="card-text">uiKey: {entry.uiKey}</p>
 
                   <button
                     className="btn btn-warning mr-2"
@@ -474,7 +473,6 @@ const filtered = !searchField
                   <p className="card-text">Age: {entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
-                  <p className="card-text">uiKey: {entry.uiKey}</p>
                   <button
                     className="btn btn-warning mr-2"
                     onClick={() => handleEdit(entry.uiKey)}
@@ -500,7 +498,7 @@ const filtered = !searchField
                   <p className="card-text">Age:{entry.age}</p>
                   <p className="card-text">Phone No: {entry.phone}</p>
                   <p className="card-text">email: {entry.email}</p>
-                  <p className="card-text">uiKey: {entry.uiKey}</p>
+
                   <button
                     className="btn btn-warning mr-2"
                     onClick={() => handleEdit(entry.uiKey)}
