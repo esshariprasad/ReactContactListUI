@@ -253,20 +253,20 @@ const filtered = !searchField
     setEditableUIkey(formData.uiKey)
 
   },[formData.uiKey])
-  // useEffect(()=>{
-  // formEntries.forEach((entry) => {
-  //   const age = parseInt(entry.age, 10);
-  //   if (age >= 1 && age <= 18) {
-  //     ageGroups["1-18"].push(entry);
-  //   } else if (age > 18 && age <= 25) {
-  //     ageGroups["18-25"].push(entry);
-  //   } else if (age > 25 && age <= 45) {
-  //     ageGroups["25-45"].push(entry);
-  //   } else if (age >= 45) {
-  //     ageGroups["45+"].push(entry);
-  //   }
-  // });
-  // },[formEntries])
+  useEffect(()=>{
+  formEntries.forEach((entry) => {
+    const age = parseInt(entry.age, 10);
+    if (age >= 1 && age <= 18) {
+      ageGroups["1-18"].push(entry);
+    } else if (age > 18 && age <= 25) {
+      ageGroups["18-25"].push(entry);
+    } else if (age > 25 && age <= 45) {
+      ageGroups["25-45"].push(entry);
+    } else if (age >= 45) {
+      ageGroups["45+"].push(entry);
+    }
+  });
+  },[formEntries])
   
   useEffect(
     (formData)=>{
