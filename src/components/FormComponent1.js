@@ -82,7 +82,7 @@ const FormComponent1 = () => {
   
     // setUIKey(uiKey+1)
     e.preventDefault();
-    if (editIndex !== null) {
+    if (editWindowActive!==true) {
       // If editing, update the entry
       const updatedEntries = [...formEntries];
       updatedEntries[editIndex] = formData;
@@ -90,8 +90,8 @@ const FormComponent1 = () => {
       setEditIndex(null);
     } 
     else {
-      // If not editing, add a new entry
-      console.log("current form entries")
+      // editing is active
+      console.log("current edited entry")
       console.log(formData)
       // updating entries with newform data but previous data needed be replaced
       // setFormEntries([...formEntries, formData]);
@@ -129,11 +129,24 @@ const FormComponent1 = () => {
     // Set the form data to the selected entry for editing
     console.log("in edit window")
     setEditWindowActive(true)
-    let result = formEntries.filter((entry) => entry.uiKey === uiKey);
-    console.log(formEntries)
-    console.log(result)
-    setFormData(result[0])
-    // setFormData(formEntries[index]);
+    let entry_to_be_edited = formEntries.filter((entry) => entry.uiKey === uiKey);
+    let rest_of_entries = formEntries.filter((entry) => entry.uiKey !== uiKey);
+    console.log("entry to be edited")
+    console.log(entry_to_be_edited[0])
+//     const newArray = array.map((obj) =>
+//   obj.uiKey === uiKeyToUpdate ? { ...obj, name: newName } : obj
+// );
+
+    console.log("after submission")
+    setFormData(rest_of_entries)
+    console.log(FormData)
+    console.log("rest of the entires")
+    console.log(rest_of_entries)
+
+    console.log("edited form data")
+    // compare formday and replacce with same uikey component
+
+    // setFormEntries(rest_of_entries);
     // setEditIndex(index);
     setShowModal(true);
   };
