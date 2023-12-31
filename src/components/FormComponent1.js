@@ -84,10 +84,8 @@ const FormComponent1 = () => {
     e.preventDefault();
     if (editWindowActive!==true) {
       // If editing, update the entry
-      const updatedEntries = [...formEntries];
-      updatedEntries[editIndex] = formData;
+      const updatedEntries = [...formEntries,formData];
       setFormEntries(updatedEntries);
-      setEditIndex(null);
     } 
     else {
       // editing is active
@@ -95,19 +93,16 @@ const FormComponent1 = () => {
       console.log(formData)
       // updating entries with newform data but previous data needed be replaced
       // setFormEntries([...formEntries, formData]);
-      // copy the same array and replace based on ui key 
-      const updatedArrayWithOrder = formEntries.map(
-        (obj,formData) =>{
-          console.log("inside update array")
-          console.log(formData)
-          console.log(obj.uiKey === formData.uiKey)
-          return obj.uiKey === formData.uiKey ? formData : obj
+      // copy the same array and replace based on ui key
+      console.log(formData.uiKey) 
+      console.log("editable UI key")
+      console.log(editableUIkey)
 
-      }
-      );
+
       console.log("updated array with order ")
-      console.log(updatedArrayWithOrder)
-      setFormEntries(updatedArrayWithOrder)
+      // console.log(updatedArrayWithOrder)
+      // setFormEntries(updatedArrayWithOrder)
+      setEditWindowActive(false)
 
     }
 
@@ -133,17 +128,21 @@ const FormComponent1 = () => {
     let rest_of_entries = formEntries.filter((entry) => entry.uiKey !== uiKey);
     console.log("entry to be edited")
     console.log(entry_to_be_edited[0])
+    console.log("setting UIkey to edit")
+    setEditableUIkey(entry_to_be_edited[0].uiKey)
+    console.log(entry_to_be_edited[0].uiKey)
+
 //     const newArray = array.map((obj) =>
 //   obj.uiKey === uiKeyToUpdate ? { ...obj, name: newName } : obj
 // );
 
-    console.log("after submission")
-    setFormData(rest_of_entries)
-    console.log(FormData)
+    console.log("setting up for edit")
+    setFormData(entry_to_be_edited[0])
+  
+    // console.log(editableUIkey )
     console.log("rest of the entires")
     console.log(rest_of_entries)
 
-    console.log("edited form data")
     // compare formday and replacce with same uikey component
 
     // setFormEntries(rest_of_entries);
@@ -238,6 +237,11 @@ const filtered = !searchField
     "45+": [],
   };
 
+  // for current editable ui key
+  useEffect(()=>{
+    setEditableUIkey(formData.uiKey)
+
+  },[formData.uiKey])
   // useEffect(()=>{
   // formEntries.forEach((entry) => {
   //   const age = parseInt(entry.age, 10);
