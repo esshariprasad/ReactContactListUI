@@ -230,6 +230,7 @@ const FormComponent1 = () => {
   
   // search code
   const handleSearchClick = e => {
+    e.preventDefault()
     setSearchResults([])
     setSearchField(e.target.value);
     console.log("search term")
