@@ -134,6 +134,7 @@ const FormComponent1 = () => {
 
   const handleEdit = (uiKey) => {
     // Set the form data to the selected entry for editing
+  
     console.log("in edit window")
     setEditWindowActive(true)
     let entry_to_be_edited = formEntries.filter((entry) => entry.uiKey === uiKey);
@@ -221,10 +222,6 @@ const FormComponent1 = () => {
     setSearchTerm(e.target.value)
     setSearchActive(true)
     searchByName(formEntries)
-  
-    
-  
-
 };
 
 const filtered = !searchField
@@ -279,14 +276,34 @@ const filtered = !searchField
     ,
   [])
 
-  // for display results
-  useEffect(()=>{
-    setDisplayResults(displayResults)
-    // console.log(displayResults)
+  // // for display results
+  // useEffect(()=>{
+  //   setDisplayResults(displayResults)
+  //   // console.log(displayResults)
 
-  },[formEntries])
+  // },[formEntries])
 
 
+
+  // 
+  if(searchActive){
+    displayResults.forEach((entry) => {
+      // console.log("ran")
+      const age = parseInt(entry.age, 10);
+      if (age >= 1 && age <= 18) {
+        ageGroups["1-18"].push(entry);
+      } else if (age > 18 && age <= 25) {
+        ageGroups["18-25"].push(entry);
+      } else if (age > 25 && age <= 45) {
+        ageGroups["25-45"].push(entry);
+      } else if (age >= 45) {
+        ageGroups["45+"].push(entry);
+      }
+    });
+
+  }
+  else{
+    // real entries
   formEntries.forEach((entry) => {
     // console.log("ran")
     const age = parseInt(entry.age, 10);
@@ -301,6 +318,7 @@ const filtered = !searchField
     }
   });
 
+  }
   return (
     <div>
       <button className="btn btn-primary" onClick={handleOpenModal}>
