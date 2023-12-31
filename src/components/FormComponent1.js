@@ -69,7 +69,10 @@ const FormComponent1 = () => {
   const [editWindowActive,setEditWindowActive]=useState(false)
   const [displayResults,setDisplayResults]= useState([])
   const [searchActive,setSearchActive]= useState(false)
+  const [editInSearch,setEditInSearch] = useState(false)
+
   const handleChange = (e) => {
+
     console.log("formdata")
     console.log(formData)
     setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:uiKey});
@@ -89,7 +92,10 @@ const FormComponent1 = () => {
       setFormEntries(updatedEntries);
     } 
     else {
+      
+
       // editing is active
+
       console.log("current edited entry")
       console.log(formData)
       // updating entries with newform data but previous data needed be replaced
@@ -186,6 +192,7 @@ const FormComponent1 = () => {
     console.log(searchTerm)
     console.log(searchTerm.length)
     if(searchTerm.length>1){
+      setSearchActive(true)
     let filtered_results=[{}]
     formEntries.forEach((entry)=>{
       let lower_case_person_name=entry.name.toLowerCase();
@@ -199,12 +206,13 @@ const FormComponent1 = () => {
     console.log("search results")
     console.log(searchResults)
     setDisplayResults(searchResults)
+    setEditInSearch(true)
     // update the UI
-
-
   }
   else{
+    console.log("search inactive")
     setSearchActive(false)
+    
   }
 
   }
@@ -220,7 +228,7 @@ const FormComponent1 = () => {
     console.log("search term")
     console.log(e.target.value)
     setSearchTerm(e.target.value)
-    setSearchActive(true)
+    // setSearchActive(true)
     searchByName(formEntries)
 };
 
@@ -300,6 +308,7 @@ const filtered = !searchField
         ageGroups["45+"].push(entry);
       }
     });
+      // if search is active and edit in search active  refresh the page
 
   }
   else{
