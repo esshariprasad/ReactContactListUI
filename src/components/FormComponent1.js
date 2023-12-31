@@ -100,8 +100,19 @@ const FormComponent1 = () => {
 
 
       console.log("updated array with order ")
-      // console.log(updatedArrayWithOrder)
-      // setFormEntries(updatedArrayWithOrder)
+      const updatedArrayWithOrder = formEntries.map(
+        (obj) =>{
+          console.log("inside update array")
+          console.log(formData)
+          console.log(obj.uiKey === editableUIkey)
+          return obj.uiKey === formData.uiKey ? formData : obj
+
+      }
+      );
+      console.log("updated array with order ")
+      console.log(updatedArrayWithOrder)
+      setFormEntries(updatedArrayWithOrder)
+
       setEditWindowActive(false)
 
     }
