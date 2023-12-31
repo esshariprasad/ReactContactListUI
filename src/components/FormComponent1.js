@@ -75,7 +75,12 @@ const FormComponent1 = () => {
 
     console.log("formdata")
     console.log(formData)
+    if(editWindowActive){
+      setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:editableUIkey});
+    }
+    else{
     setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:uiKey});
+    }
     // something for submit button
     console.log("next key value")
     console.log(uiKey)
