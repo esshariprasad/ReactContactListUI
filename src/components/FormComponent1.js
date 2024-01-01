@@ -1,45 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 const FormComponent1 = () => {
-  let mockdata=[{
-    name: "Sai Shiva Hari Prasad Embar",
-    age: "30",
-    phone: "122",
-    email: "esshariprasad@gmail.com",
-    uiKey:1,
-  },
-  {
-    name: "Sai Shiva E",
-    age: "28",
-    phone: "122",
-    email: "saishiva@gmail.com",
-    uiKey:2,
-  },
-  {
-    name: "Hari Prasad",
-    age: "10",
-    phone: "122",
-    email: "ravi@gmail.com",
-    uiKey:3,
-  },
-  {
-    name: "Divya",
-    age: "25",
-    phone: "832224444",
-    email: "divya@gmail.com",
-    uiKey:4,
-  },
-  {
-    name: "Ayaan ",
-    age: "14",
-    phone: "832224444",
-    email: "ayaan@gmail.com",
-    uiKey:5,
-  },
-]
-  
-  
-
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -47,94 +8,54 @@ const FormComponent1 = () => {
     email: "",
   });
 
-  
-  const setUPMockData=(mockdata)=>{
-    // console.log("setting up mock data")
-    // console.log(mockdata)
-     setFormEntries(mockdata)
-     setUIKey(10)
-    
-   
-    //  setFormEntries(mockdata)
-  }
-
-
-  const [formEntries, setFormEntries] = useState([])
+  const [formEntries, setFormEntries] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([])
-  const [uiKey,setUIKey]=useState(0)
-  const [editableUIkey,setEditableUIkey]=useState(null)
-  const [editWindowActive,setEditWindowActive]=useState(false)
-  const [displayResults,setDisplayResults]= useState([])
-  const [searchActive,setSearchActive]= useState(false)
-  const [editInSearch,setEditInSearch] = useState(false)
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [uiKey, setUIKey] = useState(0);
+  const [editableUIkey, setEditableUIkey] = useState(null);
+  const [editWindowActive, setEditWindowActive] = useState(false);
+  const [displayResults, setDisplayResults] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
+  const [editInSearch, setEditInSearch] = useState(false);
   const handleChange = (e) => {
-
-    console.log("formdata")
-    console.log(formData)
-    if(editWindowActive){
-      setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:editableUIkey});
-    }
-    else{
-    setFormData({ ...formData, [e.target.name]: e.target.value , uiKey:uiKey});
+    if (editWindowActive) {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+        uiKey: editableUIkey,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+        uiKey: uiKey,
+      });
     }
     // something for submit button
-    console.log("next key value")
-    console.log(uiKey)
-    setSearchActive(false)
+    setSearchActive(false);
   };
 
   const handleSubmit = (e) => {
-  
-    // setUIKey(uiKey+1)
     e.preventDefault();
-    if (editWindowActive!==true) {
-      // If editing, update the entry
-      const updatedEntries = [...formEntries,formData];
+    if (editWindowActive !== true) {
+      const updatedEntries = [...formEntries, formData];
       setFormEntries(updatedEntries);
-    } 
-    else {
-      
-
-      // editing is active
-
-      console.log("current edited entry")
-      console.log(formData)
-      // updating entries with newform data but previous data needed be replaced
-      // setFormEntries([...formEntries, formData]);
+    } else {
       // copy the same array and replace based on ui key
-      console.log(formData.uiKey) 
-      console.log("editable UI key")
-      console.log(editableUIkey)
-
-
-      console.log("updated array with order ")
-      const updatedArrayWithOrder = formEntries.map(
-        (obj) =>{
-          // console.log("inside update array")
-          // console.log(formData)
-          // console.log(obj.uiKey === editableUIkey)
-          return obj.uiKey === formData.uiKey ? formData : obj
-
-      }
-      );
-      console.log("updated array with order ")
-      console.log(updatedArrayWithOrder)
-      setFormEntries(updatedArrayWithOrder)
-
-      setEditWindowActive(false)
-
+      const updatedArrayWithOrder = formEntries.map((obj) => {
+        return obj.uiKey === formData.uiKey ? formData : obj;
+      });
+      setFormEntries(updatedArrayWithOrder);
+      setEditWindowActive(false);
     }
-
     setFormData({ name: "", age: "", phone: "", email: "" });
     setShowModal(false);
   };
 
   const handleOpenModal = () => {
-    setUIKey(uiKey+1)
+    setUIKey(uiKey + 1);
     setShowModal(true);
   };
 
@@ -145,30 +66,14 @@ const FormComponent1 = () => {
 
   const handleEdit = (uiKey) => {
     // Set the form data to the selected entry for editing
-  
-    console.log("in edit window")
-    setEditWindowActive(true)
-    let entry_to_be_edited = formEntries.filter((entry) => entry.uiKey === uiKey);
+    setEditWindowActive(true);
+    let entry_to_be_edited = formEntries.filter(
+      (entry) => entry.uiKey === uiKey
+    );
     let rest_of_entries = formEntries.filter((entry) => entry.uiKey !== uiKey);
-    console.log("entry to be edited")
-    console.log(entry_to_be_edited[0])
-    console.log("setting UIkey to edit")
-    setEditableUIkey(entry_to_be_edited[0].uiKey)
-    console.log(entry_to_be_edited[0].uiKey)
-
-//     const newArray = array.map((obj) =>
-//   obj.uiKey === uiKeyToUpdate ? { ...obj, name: newName } : obj
-// );
-
-    console.log("setting up for edit")
-    setFormData(entry_to_be_edited[0])
-  
-    // console.log(editableUIkey )
-    console.log("rest of the entires")
-    console.log(rest_of_entries)
-
+    setEditableUIkey(entry_to_be_edited[0].uiKey);
+    setFormData(entry_to_be_edited[0]);
     // compare formday and replacce with same uikey component
-
     // setFormEntries(rest_of_entries);
     // setEditIndex(index);
     setShowModal(true);
@@ -176,7 +81,7 @@ const FormComponent1 = () => {
 
   const handleDelete = (uiKey) => {
     // Delete the selected entry
-    let updatedEntries = formEntries.filter(item => item.uiKey !== uiKey);
+    let updatedEntries = formEntries.filter((item) => item.uiKey !== uiKey);
     setFormEntries(updatedEntries);
   };
 
@@ -185,70 +90,43 @@ const FormComponent1 = () => {
     setFormEntries(sortedEntries);
   };
 
-  const searchByName = (formEntries)=>{
-  //  formEntries contain orginal data
-  // search results contain filtered data
+  const searchByName = (formEntries) => {
+    //  formEntries contain orginal data
+    // search results contain filtered data
     // setSearchActive(true)
-    // console.log("search status")
-    setSearchActive(false)
-    if(searchTerm.length>1 & searchTerm!==""){
-      console.log(searchActive)
-      console.log("formEntries")
-      console.log(formEntries)
-      console.log("search term current:")
-      console.log(searchTerm)
-      console.log(searchTerm.length)
-      setSearchActive(true)
-    formEntries.forEach((entry)=>{
-      let lower_case_person_name=entry.name.toLowerCase();
-      // bring both two lower case to search effectively
-      let lowercase_searchTerm = searchTerm.toLowerCase()
-      
-      if (lower_case_person_name.startsWith(lowercase_searchTerm)) {
-        searchResults.push(entry);
+    setSearchActive(false);
+    if ((searchTerm.length > 1) & (searchTerm !== "")) {
+      setSearchActive(true);
+      formEntries.forEach((entry) => {
+        let lower_case_person_name = entry.name.toLowerCase();
+        // bring both two lower case to search effectively
+        let lowercase_searchTerm = searchTerm.toLowerCase();
+
+        if (lower_case_person_name.startsWith(lowercase_searchTerm)) {
+          searchResults.push(entry);
         }
-    })
-    console.log("search results")
-    console.log(searchResults)
-    setDisplayResults(searchResults)
-    setEditInSearch(true)
-    // update the UI
-  }
-  else{
-    console.log("search inactive")
-    setSearchActive(false)
-    setEditInSearch(false)
-    // setSearchTerm('')
-    
-  }
-
-  }
-
-
-  
+      });
+      setDisplayResults(searchResults);
+      setEditInSearch(true);
+      // update the UI
+    } else {
+      setSearchActive(false);
+      setEditInSearch(false);
+      // setSearchTerm('')
+    }
+  };
   const [searchField, setSearchField] = useState("");
-  
-  // search code
-  const handleSearchClick = e => {
-    e.preventDefault()
-    setSearchResults([])
-    setSearchField(e.target.value);
-    console.log("search term")
-    console.log(e.target.value)
-    setSearchTerm(e.target.value)
-    // setSearchActive(true)
-    searchByName(formEntries)
-};
 
-const filtered = !searchField
-    ? formEntries
-    : formEntries.filter((e1) =>
-        e1.name.toLowerCase().includes(searchField.toLowerCase()) ||
-        e1.age.toLowerCase().includes(searchField.toLowerCase()) ||
-        e1.phone.toLowerCase().includes(searchField.toLowerCase())||
-        e1.email.toLowerCase().includes(searchField.toLowerCase())
-    );
-  // Group entries by age range (1-18 and 18-25 )
+  // search code
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+    setSearchResults([]);
+    setSearchField(e.target.value);
+    setSearchTerm(e.target.value);
+    // setSearchActive(true)
+    searchByName(formEntries);
+  };
+  // Group entries by age range (1-18 and 18-25 and 25-45 and 45+)
   const ageGroups = {
     "1-18": [],
     "18-25": [],
@@ -257,90 +135,64 @@ const filtered = !searchField
   };
 
   // for current editable ui key
-  useEffect(()=>{
-    setEditableUIkey(formData.uiKey)
-
-  },[formData.uiKey])
-  useEffect(()=>{
-  formEntries.forEach((entry) => {
-    const age = parseInt(entry.age, 10);
-    if (age >= 1 && age <= 18) {
-      ageGroups["1-18"].push(entry);
-    } else if (age > 18 && age <= 25) {
-      ageGroups["18-25"].push(entry);
-    } else if (age > 25 && age <= 45) {
-      ageGroups["25-45"].push(entry);
-    } else if (age >= 45) {
-      ageGroups["45+"].push(entry);
-    }
-  });
-  },[formEntries])
-  
-  useEffect(
-    (formData)=>{
-      // intial setup
-
-      // console.log(formData)
-      // setFormEntries(...formData)
-  
-      // setUPMockData(mockdata)
-      // console.log(formEntries)
-      // console.log(searchTerm)
-      
-
-    }
-    ,
-  [])
-
-  useEffect(()=>{
-
-    if(searchTerm.length<1){
-      setSearchActive(false)
-    }
-  },[searchTerm])
-  // // for display results
-  // useEffect(()=>{
-  //   setDisplayResults(displayResults)
-  //   // console.log(displayResults)
-
-  // },[formEntries])
-
-
-
-  // 
-  if(searchActive){
-    displayResults.forEach((entry) => {
-      // console.log("ran")
+  useEffect(() => {
+    setEditableUIkey(formData.uiKey);
+  }, [formData.uiKey]);
+  useEffect(() => {
+    formEntries.forEach((entry) => {
       const age = parseInt(entry.age, 10);
-      if (age >= 1 && age <= 18) {
+      if (age >= 1 && age < 18) {
         ageGroups["1-18"].push(entry);
-      } else if (age > 18 && age <= 25) {
+      } else if (age >= 18 && age < 25) {
         ageGroups["18-25"].push(entry);
-      } else if (age > 25 && age <= 45) {
+      } else if (age >= 25 && age < 45) {
         ageGroups["25-45"].push(entry);
       } else if (age >= 45) {
         ageGroups["45+"].push(entry);
       }
     });
-      // if search is active and edit in search active  refresh the page
+  }, [formEntries]);
 
-  }
-  else{
-    // real entries
-  formEntries.forEach((entry) => {
-    // console.log("ran")
-    const age = parseInt(entry.age, 10);
-    if (age >= 1 && age <= 18) {
-      ageGroups["1-18"].push(entry);
-    } else if (age > 18 && age <= 25) {
-      ageGroups["18-25"].push(entry);
-    } else if (age > 25 && age <= 45) {
-      ageGroups["25-45"].push(entry);
-    } else if (age >= 45) {
-      ageGroups["45+"].push(entry);
+  useEffect(() => {
+    if (searchTerm.length < 1) {
+      setSearchActive(false);
     }
-  });
+  }, [searchTerm]);
+  // // for display results
+  // useEffect(()=>{
+  //   setDisplayResults(displayResults)
 
+  // },[formEntries])
+
+  //
+  if (searchActive) {
+    displayResults.forEach((entry) => {
+      const age = parseInt(entry.age, 10);
+      if (age >= 1 && age < 18) {
+        ageGroups["1-18"].push(entry);
+      } else if (age >= 18 && age < 25) {
+        ageGroups["18-25"].push(entry);
+      } else if (age >= 25 && age < 45) {
+        ageGroups["25-45"].push(entry);
+      } else if (age >= 45) {
+        ageGroups["45+"].push(entry);
+      }
+    });
+    // if search is active and edit in search active  refresh the page
+  } else {
+    // real entries
+    formEntries.forEach((entry) => {
+      const age = parseInt(entry.age, 10);
+      if (age >= 1 && age < 18) {
+        ageGroups["1-18"].push(entry);
+      } else if (age >= 18 && age < 25) {
+        ageGroups["18-25"].push(entry);
+      } else if (age >= 25 && age < 45) {
+        ageGroups["25-45"].push(entry);
+      } else if (age >= 45) {
+        ageGroups["45+"].push(entry);
+      }
+    });
   }
   return (
     <div>
@@ -428,21 +280,23 @@ const filtered = !searchField
       {/* Display the form entries in different cards based on age groups */}
       <div>
         <h2>Form Entries:</h2>
-      
 
-        <span>  <form class="form-inline">
-                        <div className="pa2">
-                            <input
-                                className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
-                                type="search"
-                                placeholder="Search People"
-                                onChange={handleSearchClick}
-                            />
-                        </div>
-                    </form></span> 
+        <span>
+          {" "}
+          <form class="form-inline">
+            <div className="pa2">
+              <input
+                className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
+                type="search"
+                placeholder="Search People"
+                onChange={handleSearchClick}
+              />
+            </div>
+          </form>
+        </span>
         <button className="btn btn-primary ml-2" onClick={handleSortByAge}>
-        Sort by Age
-      </button>
+          Sort by Age
+        </button>
         <div className="row">
           <div className="col">
             <h3>1-18 Age Group:</h3>
